@@ -48,7 +48,8 @@ image.all = [];
 for (let i=0 ; i <Images.length ; i++){
     new image(Images[i]);
 }
-console.log(image.all)
+
+gititem();
 function render(){
     firstIndex=random(0,image.all.length-1);
     const first=image.all[firstIndex];
@@ -69,6 +70,7 @@ function render(){
     rightImage.src = third.path;
     rightImage.title= third.name;
     rightImage.alt = third.name ;
+    
 }
 render();
 
@@ -87,6 +89,7 @@ function addVotes(event){
     }
     if (count === 25){
         imagesection.removeEventListener('click' , addVotes);
+        localStorage.setItem('image' , JSON.stringify(image.all));
         creatchart();
         // for (let i =0 ; i <Images.length; i++){
         //     document.getElementById(`${i}`).textContent=` name : ${image.all[i].name} had ${image.all[i].click}votes , and have seen ${image.all[i].shown} times`;
@@ -106,6 +109,7 @@ function getresult(){
         imageel.appendChild(PElement);
 
     }
+    
     button.removeEventListener('click' , getresult);
     button.textContent = 'reset';
     button.onclick=function addVotes(event){
@@ -243,7 +247,7 @@ function creatchart(){
 
                 ],
 
-                
+
                 borderColor: [
                     'rgba(255, 99, 132, 1)',
                     'rgba(54, 162, 235, 1)',
@@ -271,3 +275,12 @@ function creatchart(){
         return Math.floor(Math.random() * (max - min + 1) + min);
     }
       
+    function gititem(){
+        let par=localStorage.getItem('list');
+        if (par){
+            const dat =JSON.parse(par);
+            render();
+        }
+    }
+    gititem();
+    render();
